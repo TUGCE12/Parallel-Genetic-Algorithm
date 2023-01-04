@@ -16,7 +16,7 @@ class agent():
         self.genome = self.create_gene()
 
     def create_gene(self):
-        productA = []  # 30     uzunlu�u 30 olmak zorunda fazla ya da az olamaz
+        productA = []  # 30     
         productB = []  # 40
         productC = []  # 20
         productD = []  # 40
@@ -51,9 +51,9 @@ class agent():
 
     def fitness(self):
         global allPrice
-        fbase = 0  # Durum 0: fbase hesab�
+        fbase = 0 
 
-        f2 = 0  # Durum 2  de�i�kenleri
+        f2 = 0  
         x1 = []
         x2 = []
         x3 = []
@@ -63,13 +63,13 @@ class agent():
         fx2base = 0
         fx3base = 0
         fx4base = 0
-        fx5base = 0  # Durum 2 de�i�kenleri
+        fx5base = 0  
 
-        # Durum 1: t�m �ehirlerin ziyaret edilmesi
+
         flag = [0, 0, 0, 0, 0]
         f1 = 0
         for i in range(len(self.genome)):
-            x1.append(self.genome[i].count(0))  # durum 2 i�in gereken parametrelerin hesab�
+            x1.append(self.genome[i].count(0))  
             x2.append(self.genome[i].count(1))
             x3.append(self.genome[i].count(2))
             x4.append(self.genome[i].count(3))
@@ -78,26 +78,25 @@ class agent():
             fx2base = fx2base + x2[i] * allPrice[i][1]
             fx3base = fx3base + x3[i] * allPrice[i][2]
             fx4base = fx4base + x4[i] * allPrice[i][3]
-            fx5base = fx5base + x5[i] * allPrice[i][4]  # durum 2 sonu
+            fx5base = fx5base + x5[i] * allPrice[i][4]  
             for j in range(5):
-                p = allPrice[i][j]  # durum 0 fbase hesab�
+                p = allPrice[i][j]  
                 itemNum = self.genome[i].count(j)
-                fbase = fbase + (p * itemNum)  # durum 0 fbase hesab�
-                if (self.genome[i].count(j) > 0):  # durum 1 kontrolu
+                fbase = fbase + (p * itemNum)  
+                if (self.genome[i].count(j) > 0):  
                     flag[j] = 1
 
-        if (flag.count(0) == 0):  # durum 1 kontrolu
+        if (flag.count(0) == 0):  
             f1 = 100
 
-        # Durum 2: Her bir �ehir i�in, Her �r�nden ayn� miktarda sat�lmas�
+        
 
         f2 = f2 + fx1base * self.findf2or3Rate(x1)
         f2 = f2 + fx2base * self.findf2or3Rate(x2)
         f2 = f2 + fx3base * self.findf2or3Rate(x3)
         f2 = f2 + fx4base * self.findf2or3Rate(x4)
         f2 = f2 + fx5base * self.findf2or3Rate(x5)
-        # Durum 3: T�m �ehirlerde dengeli miktarda �r�n sat�lmas� durumu (en iyi durum hepsinde 30 �r�n sat�lmas�)
-        # bunun i�in t�m �ehirlerde sat�lan toplam �r�n miktarlar�n� tuttu�umuz bir dizi olu�tural�m
+        
         f3 = 0
         Cities = [sum(x1), sum(x2), sum(x3), sum(x4), sum(x5)]
         f3 = f3 + fbase * self.findf2or3Rate(Cities)
