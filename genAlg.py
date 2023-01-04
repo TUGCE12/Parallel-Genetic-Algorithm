@@ -28,7 +28,7 @@ class agent():
         self.genome = self.create_gene()
 
     def create_gene(self):
-        productA = []  # 30     uzunlugu 30 olmak zorunda fazla ya da az olamaz
+        productA = []  # 30     length must be 30, cannot be more or less
         productB = []  # 40
         productC = []  # 20
         productD = []  # 40
@@ -63,9 +63,9 @@ class agent():
 
     def fitness(self):
         global allPrice
-        fbase = 0  # Durum 0: fbase hesabi
+        fbase = 0  #State 0: fbase account
 
-        f2 = 0  # Durum 2  degiskenleri
+        f2 = 0  # State 2 variables
         x1 = []
         x2 = []
         x3 = []
@@ -75,13 +75,13 @@ class agent():
         fx2base = 0
         fx3base = 0
         fx4base = 0
-        fx5base = 0  # Durum 2 degiskenleri
+        fx5base = 0  #State 2 variables
 
-        # Durum 1: t�m �ehirlerin ziyaret edilmesi
+        # State 1: all cities visited
         flag = [0, 0, 0, 0, 0]
         f1 = 0
         for i in range(len(self.genome)):
-            x1.append(self.genome[i].count(0))  # durum 2 icin gereken parametrelerin hesabi
+            x1.append(self.genome[i].count(0))  # State 2: Calculation of the parameters required for
             x2.append(self.genome[i].count(1))
             x3.append(self.genome[i].count(2))
             x4.append(self.genome[i].count(3))
@@ -90,26 +90,26 @@ class agent():
             fx2base = fx2base + x2[i] * allPrice[i][1]
             fx3base = fx3base + x3[i] * allPrice[i][2]
             fx4base = fx4base + x4[i] * allPrice[i][3]
-            fx5base = fx5base + x5[i] * allPrice[i][4]  # durum 2 sonu
+            fx5base = fx5base + x5[i] * allPrice[i][4]  # End of State 2
             for j in range(5):
-                p = allPrice[i][j]  # durum 0 fbase hesabi
+                p = allPrice[i][j]  # state 0 fbase account
                 itemNum = self.genome[i].count(j)
-                fbase = fbase + (p * itemNum)  # durum 0 fbase hesabi
-                if (self.genome[i].count(j) > 0):  # durum 1 kontrolu
+                fbase = fbase + (p * itemNum)  # state 0 fbase account
+                if (self.genome[i].count(j) > 0):  # state 1 check
                     flag[j] = 1
 
-        if (flag.count(0) == 0):  # durum 1 kontrolu
+        if (flag.count(0) == 0):  # state 1 check
             f1 = 100
 
-        # Durum 2: Her bir sehir icin, Her urunden ayni miktarda satilmasi
+        # State 2: For each city, the same quantity of each product is sold
 
         f2 = f2 + fx1base * self.findf2or3Rate(x1)
         f2 = f2 + fx2base * self.findf2or3Rate(x2)
         f2 = f2 + fx3base * self.findf2or3Rate(x3)
         f2 = f2 + fx4base * self.findf2or3Rate(x4)
         f2 = f2 + fx5base * self.findf2or3Rate(x5)
-        # Durum 3: Tum sehirlerde dengeli miktarda urun satilmasi durumu (en iyi durum hepsinde 30 urun satilmasi)
-        # bunun icin tum sehirlerde satilan toplam urun miktarlarini tuttugumuz bir dizi olusturalim
+        # State 3: Balanced quantity of products sold in all cities (best case 30 products sold in all)
+         # for this, let's create an array where we keep the total product quantities sold in all cities
         f3 = 0
         Cities = [sum(x1), sum(x2), sum(x3), sum(x4), sum(x5)]
         f3 = f3 + fbase * self.findf2or3Rate(Cities)
