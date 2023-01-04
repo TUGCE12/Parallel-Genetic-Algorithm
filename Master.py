@@ -142,18 +142,18 @@ if __name__ == '__main__':
     # for t in threads:
     #     t.join()
     #Standart GA için burayı çalıştırın
-    tryArr = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.90, 0.95, 1]
+    #tryArr = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.90, 0.95, 1]
 
-    for prob in range(len(tryArr)):
-        totalEv = 0
-        GA.p = tryArr[prob]
-        for j in range(20):
-            world = GA.evolution(10)
-            for i in range(1000):
-                best = world.evolve(G=1)
-                totalEv = totalEv + 1
-                if world.best_agent.fitness() >= fitness_value:
-                    break
-            #print(j, i, world.best_agent.fitness())
-        print(f'For probabilty : {GA.p}\nThe algorithm ran {j + 1} times.The Average Evolution Count is: {totalEv / 20}')
-        print(f'Final fitness Score: {world.best_agent.fitness()}\n')
+    #for prob in range(len(tryArr)):
+    #    totalEv = 0
+    #    GA.p = tryArr[prob]
+    #    for j in range(20):
+    #        world = GA.evolution(10)
+    #        for i in range(1000):
+    #            best = world.evolve(G=1)
+    #            totalEv = totalEv + 1
+    #            if world.best_agent.fitness() >= fitness_value:
+    #                break
+    #        #print(j, i, world.best_agent.fitness())
+    #    print(f'For probabilty : {GA.p}\nThe algorithm ran {j + 1} times.The Average Evolution Count is: {totalEv / 20}')
+    #    print(f'Final fitness Score: {world.best_agent.fitness()}\n')
