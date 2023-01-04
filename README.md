@@ -36,4 +36,64 @@ See fitness account details.
 ### 2. Evolution:
 Selection cross-over and mutation operations are performed in this class.
 
------------------
+# To run the standard GA:
+
+in the [Master.py()](https://github.com/TUGCE12/Parallel-Genetic-Algorithm/blob/main/Master.py) file
+
+    if __name__ == '__main__':
+
+All code in the block is in the comment line.
+
+You just have to uncomment the code below and run Master.py.
+
+    tryArr = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.90, 0.95, 1]
+
+    for prob in range(len(tryArr)):
+        totalEv = 0
+        GA.p = tryArr[prob]
+        for j in range(20):
+            world = GA.evolution(10)
+            for i in range(1000):
+                best = world.evolve(G=1)
+                totalEv = totalEv + 1
+                if world.best_agent.fitness() >= fitness_value:
+                    break
+            #print(j, i, world.best_agent.fitness())
+        print(f'For probabilty : {GA.p}\nThe algorithm ran {j + 1} times.The Average Evolution Count is: {totalEv / 20}')
+        print(f'Final fitness Score: {world.best_agent.fitness()}\n')
+
+
+
+
+# To run the parallel GA:
+
+in the [Master.py()](https://github.com/TUGCE12/Parallel-Genetic-Algorithm/blob/main/Master.py) file
+
+    if __name__ == '__main__':
+
+All code in the block is in the comment line.
+
+You just have to uncomment the code below and run Master.py from terminal.
+
+     generation = GA.evolution(population_size)
+     TCP_IP = 'localhost'
+     TCP_PORT = 6001
+     BUFFER_SIZE = 100000
+     tcpServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+     tcpServer.bind((TCP_IP, TCP_PORT))
+     threads = []
+     tcpServer.listen(2)
+     for i in range(2):
+         (conn, (ip, port)) = tcpServer.accept()
+         print('A slave connected!')
+         threadLock.acquire()
+         connectedConns.append(conn)
+         masterThread = Master(ip, port, conn, i)
+         threadLock.release()
+         masterThread.start()
+         threads.append(masterThread)
+    
+     for t in threads:
+         t.join()
+         
+After master.py is running, Slow.py and Fast.py need to be run from different terminals. 
