@@ -121,6 +121,7 @@ class Master(Thread):
 
 
 if __name__ == '__main__':
+    # -----------------------------------For parallel GA run here-----------------------------------------------
     # generation = GA.evolution(population_size)
     # TCP_IP = 'localhost'
     # TCP_PORT = 6001
@@ -141,7 +142,7 @@ if __name__ == '__main__':
     #
     # for t in threads:
     #     t.join()
-    #Standart GA için burayı çalıştırın
+    # -----------------------------------For standard GA run here-----------------------------------------------
     #tryArr = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.90, 0.95, 1]
 
     #for prob in range(len(tryArr)):
