@@ -74,34 +74,32 @@ class Master(Thread):
                     f'The algorithm ran {reiteration} times. The Average Evolution Count is: {totalEvCount / reiteration}. iteration with 2 different mutation chance')
                 exit()
     def Merge2Population(self):
-        global receivedPopulation #2N boyutunda merge edilmiş populasyon (Fast +Slow)
+        global receivedPopulation #Merged population of size 2N (Fast +Slow)
         temp = GA.evolution(len(receivedPopulation))
-        # print("temp_reproduction prob aktarım öncesi:",temp.reproduction_probability)
         for i in range(len(receivedPopulation)):
             temp.population[i].set_gene(receivedPopulation[i].genome)  # 2N arrayini yeni populasyonumuza aktaralım
         temp.update_probabilities()
-        # print("temp_reproduction prob aktarım sonrası:", temp.reproduction_probability)
         # print("update ok")
-        # şimdi bu birleştirdiğimiz populasyonu N kişiye düşürelim bunun için fitnessi en iyi olan genomları seçeceğiz
+        # Now let's reduce this combined population to N people, for this we will choose the genomes with the best fitness.
         N = len(receivedPopulation) // 2
         pr = [temp.reproduction_probability[agent_id] for agent_id in range(N * 2)]
         pr.sort()
         ti = len(pr) // 2
-        newpr = []  # fitnessi yüksek gelen N bireyin fitness değerleri burada tutulur
+        newpr = []  #The fitness values of N individuals with high fitness are kept here
         for i in range(ti, len(pr)):
             newpr.append(pr[i])
         merged = GA.evolution(N)
         for i in range(N):
             for j in range(len(temp.reproduction_probability)):
-                if (temp.reproduction_probability[j] == newpr[i]):  # bireylerin fitnessi yüksek mi diye kontrol edilir
-                    merged.population[i].set_gene(temp.population[j].genome)  # yüksek fitnesslı bireyler yeni populasyona eklenir.
-        # evolution objesi dönsün
+                if (temp.reproduction_probability[j] == newpr[i]):  # individuals are checked to see if their fitness is high
+                    merged.population[i].set_gene(temp.population[j].genome)  # high fitness individuals are added to the new population.
+        # return evolution object
         receivedPopulation.clear()
         return merged
 
     def Listen(self):
         global connectedConns
-        global receivedPopulation #slow ve fastten gelen populasyondaki agent objelerini tutar
+        global receivedPopulation #Holds agent objects in the population from low and fast
         global threadLock
         while True:
             data = self.connection.recv(100000)
@@ -111,7 +109,7 @@ class Master(Thread):
             for i in range(len(convertedData)):
                 receivedPopulation.append(convertedData[i])
             threadLock.release()
-            if len(receivedPopulation) >= population_size*2: # hem slow hem de fastten populasyonları aldığımızda merge etmek ve yeniden göndermek için
+            if len(receivedPopulation) >= population_size*2: # to merge and resend when we receive populations from both slow and fast
                 self.Process()
 
     def run(self):
