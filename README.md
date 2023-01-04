@@ -5,8 +5,8 @@ It was made within the scope of GSU INF443 Distributed Systems and Applications 
 The codes in the [Evolutionary-Algorithm-for-Assignment-Problem-with-Python](https://github.com/TUGCE12/Evolutionary-Algorithm-for-Assignment-Problem-with-Python/blob/main/tugceCelikGenetikAlgo.py) repository have been made objective-oriented. As a result, the genAlg.py file was created.
 [For details of the problem, please refer to the description pdf in that relevant repo.](https://github.com/TUGCE12/Evolutionary-Algorithm-for-Assignment-Problem-with-Python/blob/main/assignment_2.pdf)
 
-##Structures:
-#1. Agent:
+## Structures:
+# 1. Agent:
 
 Correspond to individuals in the population.
          productA = [] # 30
@@ -31,7 +31,7 @@ The importance of cities is since the price of each product differs from city to
 We calculate how much profit the agent brings with the def fitness(self): function.
 See fitness account details.
 
-#2. Evolution:
+# 2. Evolution:
 Selection cross-over and mutation operations are performed in this class.
 
 -----------------
