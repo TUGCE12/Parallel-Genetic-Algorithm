@@ -10,7 +10,7 @@ The codes in the [Evolutionary-Algorithm-for-Assignment-Problem-with-Python](htt
 
 Correspond to individuals in the population.
 
-         productA = [] # 30/n
+         productA = [] # 30
          productB = [] # 40
          productC = [] # 20
          productD = [] # 40
