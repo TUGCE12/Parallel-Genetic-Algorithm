@@ -9,11 +9,13 @@ The codes in the [Evolutionary-Algorithm-for-Assignment-Problem-with-Python](htt
 ### 1. Agent:
 
 Correspond to individuals in the population.
-         productA = [] # 30
+
+         productA = [] # 30/n
          productB = [] # 40
          productC = [] # 20
          productD = [] # 40
          productE = [] # 20
+         
 individual = [productA,....,productE] ## is the individual's gene sequence.
 
 The number of indexes for productX is equivalent to the number of products we have.
